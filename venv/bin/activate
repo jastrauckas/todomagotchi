@@ -39,7 +39,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="/afs/ee.cooper.edu/user/s/c/schenk/Documents/SeniorSpring/Hack/Hackathon/helloflask/venv"
+VIRTUAL_ENV="/afs/ee.cooper.edu/user/s/c/schenk/Documents/SeniorSpring/Hack/Hackathon/venv"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"
