@@ -16,6 +16,9 @@ def toJson(data):
 	return json.dumps(data, default=json_util.default)
 
 @app.route('/')
+def root():
+	return redirect(url_for('login'))
+	
 @app.route('/login', methods=['POST', 'GET'])
 def login():
 	if request.method=='GET':
