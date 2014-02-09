@@ -78,11 +78,12 @@
   </body>
   <script>
     $("input['type=checkbox']").on("click", function(e){
-      $.ajax({
+      var req = $.ajax({
         url:"/completed", type:"POST", data:{id: $(this).attr('data-id')}
-      }).success(msg){
+      })
+      req.success( function(msg){
         windows.location.reload();
-      }
+      })
     })
   </script>
 </html>
