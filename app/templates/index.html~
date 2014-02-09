@@ -14,45 +14,59 @@
       </div>
       <p class="quote">"All work and no play makes you a dull pet"</p>
       <table>
-      	<tr>
-	  <td class="stat">Health</td><td><div class="progress" style="width:40%"></div></td>
-	</tr>
-      	<tr>
-	  <td class="stat">Energy</td><td><div class="progress" style="width:80%"></div></td>
-	</tr>
+        <tr>
+          <td class="stat">Health</td><td><div class="progress" style="width:40%"></div></td>
+        </tr>
+        <tr>
+          <td class="stat">Energy</td><td><div class="progress" style="width:80%"></div></td>
+        </tr>
       </table>
-	<a href='/addtask' id='plus' type = "button" style= "width:25px; height:25px;">+</a>
+        <a href='/addtask' id='plus' type = "button" style= "width:25px; height:25px;">+</a>
       <div id="todolist">
+
+        <table>
+        <h2>TO DO</h2>
+        {% for task in tasks %}
+          <tr> 
+            <td><input type="checkbox" {% if task.complete %} checked {% endif %}></td>
+            <td class="task">{{task.name}}</td>
+            <td class = "points">{{task.value}}</td>
+          </tr>        
+        {% endfor %}
+        </table>
+
+        <!--
         <h2>Chores</h2>
         <table>
-	  <tr> 
-	    <td><input type="checkbox"></td>
-	    <td class="task">Take out trash</td>
-	    <td class = "points">100</td>
-	  </tr>
+          <tr> 
+            <td><input type="checkbox"></td>
+            <td class="task">Take out trash</td>
+            <td class = "points">100</td>
+          </tr>
 
-	  <tr> 
-	    <td><input type="checkbox"></td>
-	    <td class="task">Feed cat</td>
-	    <td class = "points">50</td>
-	  </tr>
+          <tr> 
+            <td><input type="checkbox"></td>
+            <td class="task">Feed cat</td>
+            <td class = "points">50</td>
+          </tr>
 
-     	</table>
+             </table>
         <h2>Education</h2>
         <table>
-	  <tr> 
-	    <td><input type="checkbox"></td>
-	    <td class="task">Calc HW</td>
-	    <td class = "points"<200</td>
-	  </tr>
+          <tr> 
+            <td><input type="checkbox"></td>
+            <td class="task">Calc HW</td>
+            <td class = "points"<200</td>
+          </tr>
 
-	  <tr> 
-	    <td><input type="checkbox"></td>
-	    <td class="task">Read Ulysses</td>
-	    <td class = "points">5000</td>
-	  </tr>
+          <tr> 
+            <td><input type="checkbox"></td>
+            <td class="task">Read Ulysses</td>
+            <td class = "points">5000</td>
+          </tr>
 
-     	</table>
+        </table>
+      -->
       </div>
       </div>
 
