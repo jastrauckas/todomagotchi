@@ -1,12 +1,59 @@
+<!DOCTYPE html>
 <html>
   <head>
     <title>{{title}} - microblog</title>
+    <link rel="stylesheet" href="/static/css/main.css">
   </head>
   <body>
-  <center>
+    <div class="masterdiv">
       <h1>ToDoMagotchi!</h1>
-      <img src="/static/images/sillyball.jpg" alt="HI!" style="width:50%">
-      <h2><i>"All work and no play makes {{user.nickname}} a dull pet"</i><h2>
-  </center>
+      <div class="character_wrapper">
+        <img src="/static/images/sillyball.jpg" alt="HI!">
+      </div>
+      <p class="quote">"All work and no play makes {{user.nickname}} a dull pet"</p>
+      <table>
+      	<tr>
+	  <td class="stat">Health</td><td><div class="progress" style="width:40%"></div></td>
+	</tr>
+      	<tr>
+	  <td class="stat">Energy</td><td><div class="progress" style="width:80%"></div></td>
+	</tr>
+      </table>
+
+      <div id="todolist">
+        <h2>Chores</h2>
+        <table>
+	  <tr> 
+	    <td><input type="checkbox"></td>
+	    <td class="task">Take out trash</td>
+	    <td class = "points">100</td>
+	  </tr>
+
+	  <tr> 
+	    <td><input type="checkbox"></td>
+	    <td class="task">Feed cat</td>
+	    <td class = "points">50</td>
+	  </tr>
+
+     	</table>
+        <h2>Education</h2>
+        <table>
+	  <tr> 
+	    <td><input type="checkbox"></td>
+	    <td class="task">Calc HW</td>
+	    <td class = "points"<200</td>
+	  </tr>
+
+	  <tr> 
+	    <td><input type="checkbox"></td>
+	    <td class="task">Read Ulysses</td>
+	    <td class = "points">5000</td>
+	  </tr>
+
+     	</table>
+      </div>
+      </div>
+
+    </div>
   </body>
 </html>

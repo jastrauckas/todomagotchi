@@ -1,0 +1,46 @@
+body
+{
+  padding:0;
+  margin:0;
+  font-size:10px;
+}
+
+h1
+{
+  text-align:center;
+}
+
+.character_wrapper
+{
+  width:100%;
+  padding:0;
+}
+
+.character_wrapper img
+{
+  width:100%;
+}
+
+.quote
+{
+  font-style:italic;
+  font-size:1.8em;
+}
+
+.progress
+{
+  background-color:green;
+  height:.8em;
+  margin: .1em 0;
+}
+
+table
+{
+  width:100%;
+}
+
+.stat
+{
+  width:40%;
+  font-size:1.8em;
+}
