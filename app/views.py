@@ -5,10 +5,12 @@ from pymongo import MongoClient
 from app import app
 
 client = MongoClient("mongodb://admin:123@troup.mongohq.com:10032/todo")
-
-db = client.todo
-user_collection = db.user_collection
-task_collection = db.task_collection
+if client:
+	db = client.todo
+	user_collection = db.user_collection
+	task_collection = db.task_collection
+else:
+	print "CANT CONNECT TO DATABASE"
 def toJson(data):
 #Convert Mongo object(s) to JSON
 	return json.dumps(data, default=json_util.default)
