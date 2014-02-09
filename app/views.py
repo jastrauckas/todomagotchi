@@ -1,9 +1,11 @@
+print "WHO AM I"
 from flask import Flask, render_template, request, jsonify, make_response, redirect, url_for
 import os, pymongo, re, json
 from bson import json_util
 from pymongo import MongoClient
 from app import app
 
+print "WHAT IS MY PURPOSE?"
 client = MongoClient("mongodb://admin:123@troup.mongohq.com:10032/todo")
 if client:
 	db = client.todo
