@@ -10,22 +10,24 @@ client = MongoClient("mongodb://admin:123@troup.mongohq.com:10032/todo")
 db = client.todo
 user_collection = db.user_collection
 
-
-USER_RE = re.compile(r"^[a-zA-Z0-9_-]{3,20}$")
-Pass_RE = re.compile(r"^.{3,20}")
-email_RE = re.compile(r"^[\S]+@[\S]+\.[\S]+$")
-def validu(u):
-    return USER_RE.match(u)
-def validp(p):
-    return Pass_RE.match(p)
-def verifp(p,v):
-    return p==v
-def valide(e):
-    if not e:
-        return True
-    return email_RE.match(e)
-
 @app.route('/')
+@app.route('/login', methods=['POST', 'GET'])
+def login():
+	if request.method=='GET':
+		return render_template("login.html")
+	elif request.method=='POST':
+		username = request.form['username']
+		password = request.form['password']
+		if len(username) > 0 and len(password) > 0:
+		 	userinfo = user_collection.find_one({'username' : username })
+		 	print userinfo
+		 	if userinfo!=None and userinfo['password']==password:
+				return render_template('user.html', username = username, password = password)
+			else:
+			    return render_template("login.html", errmsg="Login Error")
+        else:
+	        return render_template("login.html", errmsg="Login Error")
+	        
 @app.route('/signup', methods=['POST', 'GET'])
 def signup():
 	if request.method=='GET':
@@ -34,11 +36,10 @@ def signup():
 		username = request.form['username']
 		password = request.form['password']
         if len(username) > 0 and len(password) > 0:
-            print user_collection.find_one({'username' : username })
             if user_collection.find_one({'username' : username }) == None:
                 user = {	
-                    username : username,
-                    password : password
+                    'username' : username,
+                    'password' : password
                 }
                 user_collection.insert(user)
                 return render_template('user.html', username = username, password = password)
@@ -48,11 +49,6 @@ def signup():
 
         else:
             return render_template('signup.html', error = 'Both fields must be complete.')
-
-
-def writesignupform(uname="",uerr="",perr="",merr="",email="",eerr=""):
-	print "LEEEEEEEEEEEEEE"
-	return render_template("signup.html", uname= uname,uerr= uerr,perr= perr,merr= merr,email= email,eerr= eerr)
 @app.route('/index')
 def index():
     user = { 'nickname': 'Miguel' } # fake user
