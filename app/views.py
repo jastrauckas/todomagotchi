@@ -17,7 +17,7 @@ else:
 def toJson(data):
 #Convert Mongo object(s) to JSON
 	return json.dumps(data, default=json_util.default)
-
+print "JSON DONE"
 @app.route('/')
 @app.route('/login', methods=['POST', 'GET'])
 def login():
@@ -37,7 +37,7 @@ def login():
 			    return render_template("login.html", errmsg="Login Error")
         else:
 	        return render_template("login.html", errmsg="Login Error")
-	        
+print "DID SLASH LOGIN"	        
 @app.route('/signup', methods=['POST', 'GET'])
 def signup():
 	if request.method=='GET':
@@ -61,6 +61,7 @@ def signup():
 
         else:
             return render_template('signup.html', error = 'Both fields must be complete.')
+print "DID SLASH SIGNUP"	              
 @app.route('/newtask',methods=['POST'])
 def newtask():
 	username = request.cookies.get('username')
@@ -79,7 +80,7 @@ def newtask():
                 }
 		task_collection.insert(task)
 		return redirect(url_for('refresh'))
-		
+print "DID SLASH NEWTASK"
 @app.route('/refresh')
 def refresh():
 	cursor = task_collection.find()
@@ -99,7 +100,7 @@ def refresh():
 			return toJson(results)
 		else:
 			return redirect(url_for('login'))"""
-
+print "DID SLASH REFRESH"
 @app.route('/addtask', methods=['POST', 'GET'])
 def addtask():
 	if request.method=='GET':
@@ -121,12 +122,12 @@ def addtask():
 		            }
 			task_collection.insert(task)
 			return redirect(url_for('refresh'))
-		
+print "DID SLASH ADDTASK"
 	
 @app.route('/index')
 def index():
     return render_template("index.html")
-
+print "DID SLASH INDEX"
 if __name__ == '__main__':
     # Bind to PORT if defined, otherwise default to 5000.
     #port = int(os.environ.get('PORT', 5000))
