@@ -50,7 +50,9 @@
         url:"/completed", type:"POST", data:{id: $(this).attr('data-id')}
       }).done(function(blah, status){
       	console.log(status);
-        windows.location.reload();
+        window.location.reload();
+      }).fail(function (a, b, c) {
+      	console.log(a,b,c);
       })
     })
   </script>

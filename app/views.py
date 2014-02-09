@@ -115,10 +115,9 @@ def addtask():
 @app.route('/completed', methods=['POST'])
 def completed():
 	id = request.form['id']
-	print objectid.ObjectId(id)
 	if id:
-		task_collection.update({_id : objectid.ObjectId(id)}, {"$set":{'complete' : True}})
-	return Response(status="OK", status_code=200)
+		print task_collection.update({"_id" : objectid.ObjectId(id)}, {"$set":{'complete' : True}})
+	return jsonify({"status": "200"})
 	
 	
 @app.route('/index')
