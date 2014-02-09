@@ -1,23 +1,20 @@
-print "WHO AM I"
 from flask import Flask, render_template, request, jsonify, make_response, redirect, url_for
 import os, pymongo, re, json
 from bson import json_util
 from pymongo import MongoClient
 from app import app
 
-print "WHAT IS MY PURPOSE?"
+
 client = MongoClient("mongodb://admin:123@troup.mongohq.com:10032/todo")
 if client:
 	db = client.todo
 	user_collection = db.user_collection
 	task_collection = db.task_collection
-	print "CONNECTED DB!"
-else:
-	print "CANT CONNECT TO DATABASE"
+
 def toJson(data):
 #Convert Mongo object(s) to JSON
 	return json.dumps(data, default=json_util.default)
-print "JSON DONE"
+
 @app.route('/')
 @app.route('/login', methods=['POST', 'GET'])
 def login():
@@ -37,7 +34,7 @@ def login():
 			    return render_template("login.html", errmsg="Login Error")
         else:
 	        return render_template("login.html", errmsg="Login Error")
-print "DID SLASH LOGIN"	        
+        
 @app.route('/signup', methods=['POST', 'GET'])
 def signup():
 	if request.method=='GET':
@@ -61,7 +58,7 @@ def signup():
 
         else:
             return render_template('signup.html', error = 'Both fields must be complete.')
-print "DID SLASH SIGNUP"	              
+              
 @app.route('/newtask',methods=['POST'])
 def newtask():
 	username = request.cookies.get('username')
@@ -80,27 +77,19 @@ def newtask():
                 }
 		task_collection.insert(task)
 		return redirect(url_for('refresh'))
-print "DID SLASH NEWTASK"
+
 @app.route('/refresh')
 def refresh():
-	cursor = task_collection.find()
-	results = []
-	for todo in cursor:
-		results.append(todo)
-	return toJson(results)
-	#return redirect(url_for('login'))
-"""
+	username = request.cookies.get('username')
+	if username:
+		cursor = task_collection.find({'username' : username })
+		results = []
+		for todo in cursor:
+			results.append(todo)
+		return toJson(results)
 	else:
-		username = request.cookies.get('username')
-		if username:
-			cursor = task_collection.find({'username' : username })
-			results = []
-			for todo in cursor:
-				results.append(todo)
-			return toJson(results)
-		else:
-			return redirect(url_for('login'))"""
-print "DID SLASH REFRESH"
+		return redirect(url_for('login'))
+
 @app.route('/addtask', methods=['POST', 'GET'])
 def addtask():
 	if request.method=='GET':
@@ -122,12 +111,12 @@ def addtask():
 		            }
 			task_collection.insert(task)
 			return redirect(url_for('refresh'))
-print "DID SLASH ADDTASK"
+
 	
 @app.route('/index')
 def index():
     return render_template("index.html")
-print "DID SLASH INDEX"
+
 if __name__ == '__main__':
     # Bind to PORT if defined, otherwise default to 5000.
     port = int(os.environ.get('PORT', 5000))
