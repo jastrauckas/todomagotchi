@@ -112,6 +112,12 @@ def addtask():
 			task_collection.insert(task)
 			return redirect(url_for('refresh'))
 
+@app.route('/completed', methods=['POST'])
+def index():
+	id = request.form['id']
+	if id:
+		task_collection.update({_id : id}, {"$set":{'complete' : True}})
+    return redirect(url_for('refresh'))
 	
 @app.route('/index')
 def index():
