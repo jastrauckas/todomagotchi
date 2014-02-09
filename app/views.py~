@@ -1,15 +1,17 @@
+print "WHO AM I"
 from flask import Flask, render_template, request, jsonify, make_response, redirect, url_for
 import os, pymongo, re, json
 from bson import json_util
 from pymongo import MongoClient
 from app import app
 
-print "WHO AM I"
+print "WHAT IS MY PURPOSE?"
 client = MongoClient("mongodb://admin:123@troup.mongohq.com:10032/todo")
 if client:
 	db = client.todo
 	user_collection = db.user_collection
 	task_collection = db.task_collection
+	print "CONNECTED DB!"
 else:
 	print "CANT CONNECT TO DATABASE"
 def toJson(data):

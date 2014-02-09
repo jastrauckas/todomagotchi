@@ -11,6 +11,7 @@ if client:
 	db = client.todo
 	user_collection = db.user_collection
 	task_collection = db.task_collection
+	print "CONNECTED DB!"
 else:
 	print "CANT CONNECT TO DATABASE"
 def toJson(data):
