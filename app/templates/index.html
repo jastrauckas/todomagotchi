@@ -77,7 +77,7 @@
 
   </body>
   <script>
-    $("input['type=checkbox']").on("click", function(e){
+    $(":checkbox").on("click", function(e){
       var req = $.ajax({
         url:"/completed", type:"POST", data:{id: $(this).attr('data-id')}
       })
