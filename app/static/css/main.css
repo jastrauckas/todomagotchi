@@ -44,3 +44,8 @@ table
   width:40%;
   font-size:1.8em;
 }
+
+.task, .points
+{
+  font-size:1.8em;
+}
