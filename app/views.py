@@ -1,9 +1,7 @@
 from flask import Flask, render_template, request
 import pymongo, re
 from pymongo import MongoClient
-import os
-
-app = Flask(__name__)
+from app import app
 
 client = MongoClient("mongodb://admin:123@troup.mongohq.com:10032/todo")
 
@@ -22,7 +20,7 @@ def login():
 		 	userinfo = user_collection.find_one({'username' : username })
 		 	print userinfo
 		 	if userinfo!=None and userinfo['password']==password:
-				return render_template('user.html', username = username, password = password)
+				return render_template('user.html')
 			else:
 			    return render_template("login.html", errmsg="Login Error")
         else:
@@ -42,7 +40,7 @@ def signup():
                     'password' : password
                 }
                 user_collection.insert(user)
-                return render_template('user.html', username = username, password = password)
+                return render_template('user.html')
 
             else:
                 return render_template('signup.html', error = 'Username already exists.')
