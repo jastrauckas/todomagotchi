@@ -86,7 +86,7 @@ def refresh():
 		results = []
 		for todo in cursor:
 			results.append(todo)
-		return toJson(results)
+		return render_template('index.html', tasks =results)
 	else:
 		return redirect(url_for('login'))
 
@@ -115,7 +115,7 @@ def addtask():
 	
 @app.route('/index')
 def index():
-    return render_template("index.html")
+    return redirect(url_for('refresh'))
 
 if __name__ == '__main__':
     # Bind to PORT if defined, otherwise default to 5000.

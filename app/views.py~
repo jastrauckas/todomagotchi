@@ -16,9 +16,6 @@ def toJson(data):
 	return json.dumps(data, default=json_util.default)
 
 @app.route('/')
-def root():
-	return redirect(url_for('login'))
-	
 @app.route('/login', methods=['POST', 'GET'])
 def login():
 	if request.method=='GET':
@@ -89,7 +86,7 @@ def refresh():
 		results = []
 		for todo in cursor:
 			results.append(todo)
-		return toJson(results)
+		return render_template('index.html', tasks =results)
 	else:
 		return redirect(url_for('login'))
 
