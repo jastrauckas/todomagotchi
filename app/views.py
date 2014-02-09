@@ -1,8 +1,9 @@
 from flask import Flask, render_template, request, jsonify, make_response, redirect, url_for
-import pymongo, re, json
+import os, pymongo, re, json
 from bson import json_util
 from pymongo import MongoClient
-from app import app
+#from app import app
+app = Flask(__name__)
 
 client = MongoClient("mongodb://admin:123@troup.mongohq.com:10032/todo")
 
