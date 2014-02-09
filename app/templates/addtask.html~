@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>AddTask</title>
+    <style type="text/css">
+      .label {text-align: right}
+      .error {color: red}
+    </style>
+  </head>
+  <body>
+    <h2>Add task</h2>
+    <form method="post">
+      <table>
+        <tr>
+          <td class="label">
+            Header
+          </td>
+          <td>
+            <input type="text" name="header" value="">
+          </td>
+        </tr>
+        <tr>
+          <td class="label">
+            Name
+          </td>
+          <td>
+            <input type="text name="name" value="">
+          </td>
+        </tr>
+        <tr>
+          <td class="label">
+            Value
+          </td>
+          <td>
+            <input type="text name="value" value="">
+          </td>
+        </tr>
+      </table>
+      <input type="submit">
+    </form>
+  </body>
+</html>
