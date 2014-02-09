@@ -1,9 +1,12 @@
-from flask import render_template, request
-from app import app
+from flask import Flask, render_template, request
 import pymongo, re
 from pymongo import MongoClient
+import os
+
+app = Flask(__name__)
 
 client = MongoClient("mongodb://admin:123@troup.mongohq.com:10032/todo")
+
 db = client.todo
 user_collection = db.user_collection
 
@@ -28,40 +31,25 @@ def signup():
 	if request.method=='GET':
 		return render_template("signup.html")
 	elif request.method=='POST':
-		have_error=False
 		username = request.form['username']
 		password = request.form['password']
-		verify = request.form['verify']
-		email = request.form['email']
-		uerr=""
-        perr=""
-        merr=""
-        eerr=""
-        
-        if not validu(username):
-            have_error=True
-            uerr="That's not a valid username"
-        if not validp(password):
-            have_error=True
-            perr="That wasn't a valid password."
-        if not verifp(password,verify):
-            have_error=True
-            merr="Your passwords didn't match."
-        if not valide(email):
-            have_error=True
-            eerr = "That's not a valid email."
-        if have_error:
-        	writesignupform(username,uerr,perr,merr,email,eerr)
+        if len(username) > 0 and len(password) > 0:
+            print user_collection.find_one({'username' : username })
+            if user_collection.find_one({'username' : username }) == None:
+                user = {	
+                    username : username,
+                    password : password
+                }
+                user_collection.insert(user)
+                return render_template('user.html', username = username, password = password)
+
+            else:
+                return render_template('signup.html', error = 'Username already exists.')
+
         else:
-        	if user_collection.find_one({'username' : username }) != None:
-        		uerr="username already exists"
-        		writesignupform(username,uerr,perr,merr,email,eerr)
-			user = {	
-			username : username,
-			password : password
-			}
-			user_collection.insert(user)
-			return "You ROCK"
+            return render_template('signup.html', error = 'Both fields must be complete.')
+
+
 def writesignupform(uname="",uerr="",perr="",merr="",email="",eerr=""):
 	print "LEEEEEEEEEEEEEE"
 	return render_template("signup.html", uname= uname,uerr= uerr,perr= perr,merr= merr,email= email,eerr= eerr)
@@ -71,3 +59,10 @@ def index():
     return render_template("index.html",
         title = 'Home',
         user = user)
+
+if __name__ == '__main__':
+    # Bind to PORT if defined, otherwise default to 5000.
+    port = int(os.environ.get('PORT', 5000))
+    app.debug = True
+    app.run(host='0.0.0.0', port=port)
+    print "App running on port 5000."
