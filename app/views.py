@@ -118,7 +118,7 @@ def completed():
 	print objectid.ObjectId(id)
 	if id:
 		task_collection.update({_id : objectid.ObjectId(id)}, {"$set":{'complete' : True}})
-	return Response(status=200)
+	return Response(status="OK", status_code=200)
 	
 	
 @app.route('/index')

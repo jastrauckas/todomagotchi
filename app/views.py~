@@ -1,6 +1,6 @@
-from flask import Flask, render_template, request, jsonify, make_response, redirect, url_for
+from flask import Flask, render_template, request, jsonify, make_response, redirect, url_for, Response
 import os, pymongo, re, json
-from bson import json_util
+from bson import json_util, objectid
 from pymongo import MongoClient
 from app import app
 
@@ -27,7 +27,7 @@ def login():
 		 	userinfo = user_collection.find_one({'username' : username })
 		 	print userinfo
 		 	if userinfo!=None and userinfo['password']==password:
-				resp = make_response(render_template('index.html'))
+				resp = make_response(redirect(url_for('refresh')))
 				resp.set_cookie('username',username)
 				return resp
 			else:
@@ -113,11 +113,13 @@ def addtask():
 			return redirect(url_for('refresh'))
 
 @app.route('/completed', methods=['POST'])
-def index():
+def completed():
 	id = request.form['id']
+	print objectid.ObjectId(id)
 	if id:
-		task_collection.update({_id : id}, {"$set":{'complete' : True}})
-    return redirect(url_for('refresh'))
+		task_collection.update({_id : objectid.ObjectId(id)}, {"$set":{'complete' : True}})
+	return Response(status=200)
+	
 	
 @app.route('/index')
 def index():

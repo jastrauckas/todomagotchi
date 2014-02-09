@@ -46,10 +46,10 @@
   </body>
   <script>
     $(":checkbox").on("click", function(e){
-      var req = $.ajax({
+      $.ajax({
         url:"/completed", type:"POST", data:{id: $(this).attr('data-id')}
-      })
-      req.success( function(msg){
+      }).done(function(blah, status){
+      	console.log(status);
         windows.location.reload();
       })
     })
